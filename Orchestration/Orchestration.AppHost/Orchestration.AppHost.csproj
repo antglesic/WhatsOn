@@ -1,0 +1,20 @@
+<Project Sdk="Aspire.AppHost.Sdk/13.2.2">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>3e8bcfb1-ad2e-4e6c-a185-470d8e9305ec</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting" Version="13.2.2" />
+    <PackageReference Include="Aspire.Hosting.Redis" Version="13.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\WhatsOn.Api\WhatsOn.Api.csproj" />
+  </ItemGroup>
+
+</Project>

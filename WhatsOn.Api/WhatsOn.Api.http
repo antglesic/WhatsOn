@@ -1,0 +1,6 @@
+@WhatsOn.Api_HostAddress = http://localhost:5206
+
+GET {{WhatsOn.Api_HostAddress}}/movies/
+Accept: application/json
+
+###
