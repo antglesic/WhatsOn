@@ -1,6 +1,6 @@
-﻿namespace WhatsOn.Service.MovieService.Records;
+﻿namespace WhatsOn.Service.Common.Records;
 
-public record MovieProductionCompany
+public record ProductionCompany
 {
 	public int Id { get; init; }
 	public string Name { get; init; } = string.Empty;

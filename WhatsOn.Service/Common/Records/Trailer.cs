@@ -1,4 +1,4 @@
-﻿namespace WhatsOn.Service.MovieService.Records;
+﻿namespace WhatsOn.Service.Common.Records;
 
 public record Trailer
 {

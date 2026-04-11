@@ -1,32 +1,38 @@
 ﻿using WhatsOn.Service.Common.Records;
+using WhatsOn.Service.MovieService.Records;
 
-namespace WhatsOn.Service.MovieService.Records;
+namespace WhatsOn.Service.ShowService.Records;
 
-public record MovieDetailResponse
+public record ShowDetailResponse
 {
 	private const string ImageBaseUrl = "https://image.tmdb.org/t/p";
 	public int Id { get; init; }
-	public string Title { get; init; } = string.Empty;
-	public string? OriginalTitle { get; init; } = string.Empty;
+	public string Name { get; init; } = string.Empty;
 	public string? Tagline { get; init; } = string.Empty;
 	public string? Overview { get; init; } = string.Empty;
 	public string? Status { get; init; } = string.Empty;
-	public string? ReleaseDate { get; init; } = string.Empty;
-	public string? Homepage { get; init; } = string.Empty;
-	public string? ImdbId { get; init; } = string.Empty;
-	public string Language { get; init; } = string.Empty;
-	public int? Runtime { get; init; }
-	public long Budget { get; init; }
-	public long Revenue { get; init; }
 	public double VoteAverage { get; init; }
 	public int VoteCount { get; init; }
 	public double Popularity { get; init; }
+	public string Homepage { get; init; } = string.Empty;
+	public bool InProduction { get; init; } = false;
+	public DateOnly FirstAirDate { get; init; }
+	public DateOnly? LastAirDate { get; init; }
+	public EpisodeDetails? LastEpisode { get; init; }
+	public EpisodeDetails? NextEpisodeToAir { get; init; }
+	public int NumberOfEpisodes { get; init; }
+	public int NumberOfSeasons { get; init; }
+	public IReadOnlyList<string> Languages { get; init; } = [];
+	public IReadOnlyList<string> OriginCountry { get; init; } = [];
+	public IReadOnlyList<Network> Networks { get; init; } = [];
+	public IReadOnlyList<int> EpisodeRunTime { get; init; } = [];
+	public IReadOnlyList<Creator> CreatedBy { get; init; } = [];
 	public IReadOnlyList<Genre> Genres { get; init; } = [];
 	public IReadOnlyList<ProductionCountry> ProductionCountries { get; init; } = [];
 	public IReadOnlyList<SpokenLanguage> SpokenLanguages { get; init; } = [];
+	public IReadOnlyList<Season> Seasons { get; init; } = [];
 	public Video? Videos { get; init; }
 	public IReadOnlyList<ProductionCompany> ProductionCompanies { get; init; } = [];
-	public MovieCollection? MovieCollection { get; init; }
 
 	private string? _posterPath;
 	private string? _backdropPath;

@@ -44,10 +44,10 @@ namespace WhatsOn.Api.Extensions
 			{
 				options.AddBasePolicy(policy => policy.Expire(TimeSpan.FromMinutes(15)));
 
-				// You can add named policies for different cache durations
 				options.AddPolicy("MovieSearch", policy => policy.Expire(TimeSpan.FromMinutes(15)));
 				options.AddPolicy("MovieDetails", policy => policy.Expire(TimeSpan.FromHours(24)));
-				options.AddPolicy("trailers", policy => policy.Expire(TimeSpan.FromHours(48)));
+				options.AddPolicy("ShowSearch", policy => policy.Expire(TimeSpan.FromMinutes(15)));
+				options.AddPolicy("ShowDetails", policy => policy.Expire(TimeSpan.FromHours(24)));
 			});
 
 			return services;
@@ -57,6 +57,19 @@ namespace WhatsOn.Api.Extensions
 		{
 			services
 				.AddHttpClient<IMovieService, MovieService>((serviceProvider, client) =>
+				{
+					var settings = serviceProvider
+						.GetRequiredService<IOptions<ExternalServicesSettings>>().Value;
+
+					client.BaseAddress = new Uri(settings.TheMovieDbDocumentationApiBaseUrl);
+					client.DefaultRequestHeaders.Accept
+						.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+				})
+				.AddHttpMessageHandler<TheMovieDbAuthHandler>()
+				.AddStandardResilienceHandler();
+
+			services
+				.AddHttpClient<IShowService, ShowService>((serviceProvider, client) =>
 				{
 					var settings = serviceProvider
 						.GetRequiredService<IOptions<ExternalServicesSettings>>().Value;

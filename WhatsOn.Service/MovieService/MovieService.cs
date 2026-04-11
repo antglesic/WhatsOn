@@ -27,7 +27,7 @@ namespace WhatsOn.Service.MovieService
 						["page"] = request.PageNumber.ToString(),
 						["include_adult"] = request.IncludeAdult.ToString()
 					})}",
-					_ => $"discover/movie?page={request.PageNumber}"
+					_ => $"discover/movie" + (request.PageNumber.HasValue ? $"?page={request.PageNumber}" : string.Empty)
 				};
 
 				HttpResponseMessage responseMessage = await httpClient.GetAsync(url, cancellationToken);

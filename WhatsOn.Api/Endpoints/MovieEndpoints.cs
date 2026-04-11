@@ -12,19 +12,11 @@ namespace WhatsOn.Api.Endpoints
 			RouteGroupBuilder group = app.MapGroup("/movies")
 				.WithTags("Movies");
 
-			group.MapGet("/health", GetApiHealth)
-				.WithName("Movie endpoint GetHealth")
-				.WithSummary("Get Health")
-				.WithDescription("Retrieves the health of the api.")
-				.Produces(StatusCodes.Status200OK)
-				.Produces(StatusCodes.Status404NotFound)
-				.Produces(StatusCodes.Status500InternalServerError);
-
 			group.MapGet("/getmovies", GetMovies)
 				.WithName("Movie endpoint GetMovies")
 				.WithSummary("Search movies")
 				.WithDescription("Retrieves the movies list according to the query")
-				.CacheOutput("search")
+				.CacheOutput("MovieSearch")
 				.Produces<PagedResult<Movie>>(StatusCodes.Status200OK)
 				.Produces(StatusCodes.Status404NotFound)
 				.Produces(StatusCodes.Status500InternalServerError);
@@ -33,29 +25,16 @@ namespace WhatsOn.Api.Endpoints
 				.WithName("Movie endpoint GetMovieDetails")
 				.WithSummary("Search movie details by Id")
 				.WithDescription("Retrieves the movie details retrieved by movie id")
-				.CacheOutput("details")
+				.CacheOutput("MovieDetails")
 				.Produces<MovieDetailResponse>(StatusCodes.Status200OK)
 				.Produces(StatusCodes.Status404NotFound)
 				.Produces(StatusCodes.Status500InternalServerError);
 		}
 
-		private static async Task<IResult> GetApiHealth(CancellationToken cancellationToken)
-		{
-			var retval = new
-			{
-				Status = "Healthy",
-				Timestamp = DateTime.UtcNow
-			};
-
-			await Task.Delay(100, cancellationToken); // Simulate some async work
-
-			return Results.Ok(retval);
-		}
-
 		private static async Task<IResult> GetMovies(
 			IMovieService movieService,
-			int pageNumber,
-			bool includeAdult,
+			int? pageNumber,
+			bool? includeAdult,
 			CancellationToken cancellationToken,
 			string? query = null)
 		{
