@@ -1,0 +1,3 @@
+# run once in your API project folder
+dotnet user-secrets init --project "D:\Repos\WhatsOn\WhatsOn.Api\WhatsOn.Api.csproj"
+dotnet user-secrets set "ExternalServicesSettings:TheMovieDbAccessToken" "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiZmFjYzRkMTAxZGYyM2Y0MjkzZDkwMmZlZTQxNWE5MCIsIm5iZiI6MTc3NTg5OTIyNC45MDMsInN1YiI6IjY5ZGExMjU4Njg5NTBkOTk3NGM3MmU1ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6n0MNSwh2Pi-BWE3NGQUsZNk8Xw0wCG93MPOevcqHhY" --project "D:\Repos\WhatsOn\WhatsOn.Api\WhatsOn.Api.csproj"

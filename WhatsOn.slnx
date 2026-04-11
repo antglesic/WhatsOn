@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/SolutionItems/">
+    <File Path="set-tmdb-access-token.cmd" />
+    <File Path="TMDB_API_KEY.json" />
+  </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/WhatsOn.Api/">
     <Project Path="WhatsOn.Api/WhatsOn.Api.csproj" />
