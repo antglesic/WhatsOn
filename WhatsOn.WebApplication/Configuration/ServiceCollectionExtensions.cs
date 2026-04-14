@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Options;
-using WhatsOn.Web.Services;
+using WhatsOn.Web.Services.Common.ApiClientBase;
 using WhatsOn.Web.Services.MovieApiService;
 using WhatsOn.Web.Services.ShowApiService;
 

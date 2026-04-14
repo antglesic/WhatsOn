@@ -7,8 +7,10 @@
   <Folder Name="/src/" />
   <Folder Name="/src/WhatsOn.Api/">
     <Project Path="WhatsOn.Api/WhatsOn.Api.csproj" />
-    <Project Path="WhatsOn.Domain/WhatsOn.Domain.csproj" />
     <Project Path="WhatsOn.Service/WhatsOn.Service.csproj" />
+  </Folder>
+  <Folder Name="/src/WhatsOn.Domain/">
+    <Project Path="WhatsOn.Domain/WhatsOn.Domain.csproj" />
   </Folder>
   <Folder Name="/src/WhatsOn.Orchestration/">
     <Project Path="Orchestration/Orchestration.AppHost/Orchestration.AppHost.csproj" />

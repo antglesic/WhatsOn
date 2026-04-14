@@ -1,27 +1,32 @@
+using Microsoft.Extensions.Logging;
 using System.Globalization;
+using WhatsOn.Web.Services.Common.ApiClientBase;
 using WhatsOn.Web.Services.MovieApiService.Models;
 
 namespace WhatsOn.Web.Services.MovieApiService;
 
-public sealed class MovieApiClient(HttpClient httpClient) : WhatsOnApiClientBase(httpClient), IMovieApiClient
+public sealed class MovieApiClient(
+	HttpClient httpClient,
+	ILogger<MovieApiClient> logger)
+	: WhatsOnApiClientBase(httpClient, logger), IMovieApiClient
 {
-	public Task<GetMoviesResponse> GetMoviesAsync(GetMoviesRequest request, CancellationToken cancellationToken = default)
+	public Task<GetMoviesResponse> GetMoviesAsync(GetMoviesRequest request)
 	{
 		string requestUri = BuildRelativeUri(
 			"movies/getmovies",
-			new Dictionary<string, string?>
+			new Dictionary<string, string>
 			{
 				["query"] = request.Query,
 				["pageNumber"] = request.PageNumber?.ToString(CultureInfo.InvariantCulture),
 				["includeAdult"] = request.IncludeAdult?.ToString()
 			});
 
-		return SendGetAsync<GetMoviesResponse, GetMoviesRequest>(requestUri, request, cancellationToken);
+		return ClientAppRequest<GetMoviesResponse>(requestUri, HttpMethod.Get);
 	}
 
-	public Task<GetMovieDetailsResponse> GetMovieDetailsAsync(GetMovieDetailsRequest request, CancellationToken cancellationToken = default)
+	public Task<GetMovieDetailsResponse> GetMovieDetailsAsync(GetMovieDetailsRequest request)
 	{
 		string requestUri = $"movies/moviedetails/{request.Id.ToString(CultureInfo.InvariantCulture)}";
-		return SendGetAsync<GetMovieDetailsResponse, GetMovieDetailsRequest>(requestUri, request, cancellationToken);
+		return ClientAppRequest<GetMovieDetailsResponse>(requestUri, HttpMethod.Get);
 	}
 }

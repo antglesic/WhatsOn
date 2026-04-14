@@ -26,7 +26,8 @@ var apiService = builder.AddProject<Projects.WhatsOn_Api>("api")
 builder.AddProject<Projects.WhatsOn_WebApplication>("web")
 	.WithHttpHealthCheck("/health")
 	.WithReference(apiService)
-	.WaitFor(apiService);
+	.WaitFor(apiService)
+	.WithHttpsEndpoint(port: 7066, name: "web-https"); ;
 
 await builder
 	.Build()

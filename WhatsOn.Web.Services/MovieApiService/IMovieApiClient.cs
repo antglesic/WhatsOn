@@ -4,6 +4,6 @@ namespace WhatsOn.Web.Services.MovieApiService;
 
 public interface IMovieApiClient
 {
-	Task<GetMoviesResponse> GetMoviesAsync(GetMoviesRequest request, CancellationToken cancellationToken = default);
-	Task<GetMovieDetailsResponse> GetMovieDetailsAsync(GetMovieDetailsRequest request, CancellationToken cancellationToken = default);
+	Task<GetMoviesResponse> GetMoviesAsync(GetMoviesRequest request);
+	Task<GetMovieDetailsResponse> GetMovieDetailsAsync(GetMovieDetailsRequest request);
 }

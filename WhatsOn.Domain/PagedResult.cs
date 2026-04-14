@@ -6,6 +6,6 @@
 		public int PageNumber { get; init; }
 		public int PageSize { get; init; }
 		public int TotalPages { get; init; }
-		public long TotalItemCount { get; init; }
+		public int TotalItemCount { get; init; }
 	}
 }

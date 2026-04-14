@@ -1,0 +1,52 @@
+@page "/movies"
+@using GrabaUIPackage.Components
+@using WhatsOn.Web.Services.MovieApiService
+
+<PageTitle>Movies</PageTitle>
+
+<h1>Movie Search</h1>
+<p>Search the WhatsOn API and browse paged movie results</p>
+
+<form class="row g-3 mb-4" @onsubmit="HandleSearch" @onsubmit:preventDefault>
+	<div class="col-md-8">
+		<label class="form-label" for="movie-query">Title</label>
+		<input id="movie-query"
+			   class="form-control"
+			   placeholder="Search for a movie or leave blank to discover titles"
+			   @bind="_query" />
+	</div>
+	<div class="col-md-2">
+		<label class="form-label" for="include-adult">Include Adult</label>
+		<div class="form-check mt-2">
+			<input id="include-adult" class="form-check-input" type="checkbox" @bind="_includeAdult" />
+			<label class="form-check-label" for="include-adult">Yes</label>
+		</div>
+	</div>
+	<div class="col-md-2 d-flex align-items-end">
+		<button class="btn btn-primary w-100" type="submit" disabled="@_isLoading">
+			@(_isLoading ? "Searching..." : "Search")
+		</button>
+	</div>
+</form>
+
+@if (_isLoading)
+{
+	<p><em>Loading movies...</em></p>
+}
+else
+{
+	<DataGrid TItem="Movie"
+			  Items="@_movies"
+			  Sortable="true"
+			  PageSizeOptions="@_pageSizeOptions"
+			  PageNumber="@_pageNumber"
+			  PageSize="@_pageSize"
+			  RowSelectionIdentifierProperty="Id"
+			  EnableRowSelection="true"
+			  MultiSelectionEnabled="false"
+			  OnPageChanged="OnPageNumberChange"
+			  RowCount="_rowCount">
+		<GridColumn TItem="Movie" Property="Title" Caption="Naziv" Sortable="true" Filterable="false" />
+		<GridColumn TItem="Movie" Property="Overview" Caption="Naziv" Sortable="true" Filterable="false" />
+	</DataGrid>
+}

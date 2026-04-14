@@ -4,6 +4,6 @@ namespace WhatsOn.Web.Services.ShowApiService;
 
 public interface IShowApiClient
 {
-	Task<GetShowsResponse> GetShowsAsync(GetShowsRequest request, CancellationToken cancellationToken = default);
-	Task<GetShowDetailsResponse> GetShowDetailsAsync(GetShowDetailsRequest request, CancellationToken cancellationToken = default);
+	Task<GetShowsResponse> GetShowsAsync(GetShowsRequest request);
+	Task<GetShowDetailsResponse> GetShowDetailsAsync(GetShowDetailsRequest request);
 }

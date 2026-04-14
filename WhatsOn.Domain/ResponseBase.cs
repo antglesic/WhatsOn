@@ -28,6 +28,6 @@ public abstract class ResponseBase<T> where T : RequestBase
 	/// <summary>
 	/// Default error object result for api response.
 	/// </summary>
-	public object ErrorResult => new { Message, ErrorId = ResponseToken };
+	public ErrorResponse ErrorResult => new() { Message = Message, ErrorId = ResponseToken };
 }
 

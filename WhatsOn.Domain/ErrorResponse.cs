@@ -1,6 +1,6 @@
-namespace WhatsOn.Web.Services;
+﻿namespace WhatsOn.Domain;
 
-internal sealed record ApiErrorResponse
+public sealed class ErrorResponse
 {
 	public string Message { get; init; } = string.Empty;
 	public Guid? ErrorId { get; init; }
