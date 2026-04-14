@@ -15,8 +15,8 @@ builder.Services.ConfigureServices(builder.Configuration);
 
 var app = builder.Build();
 
-app.MapDefaultEndpoints();
-app.MapEndpoints();
+app.UseHttpsRedirection();
+app.UseCors("WhatsOnWebClient");
 app.UseResponseCompression();
 app.UseRateLimiter();
 app.UseOutputCache();
@@ -32,5 +32,6 @@ if (app.Environment.IsDevelopment())
 	});
 }
 
-app.UseHttpsRedirection();
+app.MapDefaultEndpoints();
+app.MapEndpoints();
 app.Run();

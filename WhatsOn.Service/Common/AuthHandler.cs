@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
+using WhatsOn.Service.Common.Configuration;
 
 namespace WhatsOn.Service.Common;
 

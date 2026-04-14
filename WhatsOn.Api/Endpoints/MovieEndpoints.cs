@@ -17,8 +17,8 @@ namespace WhatsOn.Api.Endpoints
 				.WithSummary("Search movies")
 				.WithDescription("Retrieves the movies list according to the query")
 				.CacheOutput("MovieSearch")
-				.Produces<PagedResult<Movie>>(StatusCodes.Status200OK)
-				.Produces(StatusCodes.Status404NotFound)
+				.Produces<GetMoviesResponse>(StatusCodes.Status200OK)
+				.Produces(StatusCodes.Status400BadRequest)
 				.Produces(StatusCodes.Status500InternalServerError);
 
 			group.MapGet("/moviedetails/{id}", GetMovieDetails)
@@ -26,8 +26,8 @@ namespace WhatsOn.Api.Endpoints
 				.WithSummary("Search movie details by Id")
 				.WithDescription("Retrieves the movie details retrieved by movie id")
 				.CacheOutput("MovieDetails")
-				.Produces<MovieDetailResponse>(StatusCodes.Status200OK)
-				.Produces(StatusCodes.Status404NotFound)
+				.Produces<GetMovieDetailsResponse>(StatusCodes.Status200OK)
+				.Produces(StatusCodes.Status400BadRequest)
 				.Produces(StatusCodes.Status500InternalServerError);
 		}
 
@@ -50,7 +50,7 @@ namespace WhatsOn.Api.Endpoints
 			if (!response.Success)
 				return Results.BadRequest(response.ErrorResult);
 
-			return Results.Ok(new { response.Movies, response.Message });
+			return Results.Ok(response);
 		}
 
 		private static async Task<IResult> GetMovieDetails(

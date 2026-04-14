@@ -16,5 +16,6 @@
   </Folder>
   <Folder Name="/src/WhatsOn.Web/">
     <Project Path="WhatsOn.WebApplication/WhatsOn.WebApplication.csproj" Id="663d2362-6321-4192-b662-cae40f61ceb8" />
+    <Project Path="WhatsOn.Web.Services/WhatsOn.Web.Services.csproj" />
   </Folder>
 </Solution>

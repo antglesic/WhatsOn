@@ -17,17 +17,17 @@ namespace WhatsOn.Api.Endpoints
 				.WithSummary("Search tv shows")
 				.WithDescription("Retrieves the tv show list according to the query")
 				.CacheOutput("ShowSearch")
-				.Produces<PagedResult<Show>>(StatusCodes.Status200OK)
-				.Produces(StatusCodes.Status404NotFound)
+				.Produces<GetShowsResponse>(StatusCodes.Status200OK)
+				.Produces(StatusCodes.Status400BadRequest)
 				.Produces(StatusCodes.Status500InternalServerError);
 
-			group.MapGet("/moviedetails/{id}", GetShowDetails)
+			group.MapGet("/showdetails/{id}", GetShowDetails)
 				.WithName("Show endpoint GetShowDetails")
 				.WithSummary("Search tv show details by Id")
 				.WithDescription("Retrieves the tv show details retrieved by show id")
 				.CacheOutput("ShowDetails")
-				.Produces<ShowDetailResponse>(StatusCodes.Status200OK)
-				.Produces(StatusCodes.Status404NotFound)
+				.Produces<GetShowDetailsResponse>(StatusCodes.Status200OK)
+				.Produces(StatusCodes.Status400BadRequest)
 				.Produces(StatusCodes.Status500InternalServerError);
 		}
 
@@ -50,7 +50,7 @@ namespace WhatsOn.Api.Endpoints
 			if (!response.Success)
 				return Results.BadRequest(response.ErrorResult);
 
-			return Results.Ok(new { response.Shows, response.Message });
+			return Results.Ok(response);
 		}
 
 		private static async Task<IResult> GetShowDetails(

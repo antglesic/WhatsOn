@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace WhatsOn.Service.Common;
+namespace WhatsOn.Service.Common.Configuration;
 
 public sealed class ExternalServicesSettings
 {

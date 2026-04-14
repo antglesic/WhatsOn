@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 using WhatsOn.Service.Common;
+using WhatsOn.Service.Common.Configuration;
 using WhatsOn.Service.MovieService;
 using WhatsOn.Service.ShowService;
 
@@ -13,8 +14,9 @@ namespace WhatsOn.Api.Extensions
 			services
 				.AddApplicationServices()
 				.AddCustomOutputCaching()
-				.AddRateLimiter()
 				.ConfigureAppSettings(configuration)
+				.AddCorsPolicy(configuration)
+				.AddRateLimiter()
 				.ConfigureHttpClients();
 		}
 
@@ -29,11 +31,8 @@ namespace WhatsOn.Api.Extensions
 
 		private static IServiceCollection ConfigureAppSettings(this IServiceCollection services, IConfiguration configuration)
 		{
-			services
-				.AddOptions<ExternalServicesSettings>()
-				.Bind(configuration.GetSection(ExternalServicesSettings.SectionName))
-				.ValidateDataAnnotations()
-				.ValidateOnStart();
+			services.Configure<ExternalServicesSettings>(configuration.GetSection(nameof(ExternalServicesSettings)));
+			services.Configure<CorsPolicySettings>(configuration.GetSection(CorsPolicySettings.SectionName));
 
 			return services;
 		}
@@ -48,6 +47,31 @@ namespace WhatsOn.Api.Extensions
 				options.AddPolicy("MovieDetails", policy => policy.Expire(TimeSpan.FromHours(24)));
 				options.AddPolicy("ShowSearch", policy => policy.Expire(TimeSpan.FromMinutes(15)));
 				options.AddPolicy("ShowDetails", policy => policy.Expire(TimeSpan.FromHours(24)));
+			});
+
+			return services;
+		}
+
+		private static IServiceCollection AddCorsPolicy(this IServiceCollection services, IConfiguration configuration)
+		{
+			CorsPolicySettings corsPolicySettings = configuration.GetSection(CorsPolicySettings.SectionName).Get<CorsPolicySettings>()
+				?? throw new InvalidOperationException($"{CorsPolicySettings.SectionName} configuration is required.");
+
+			string[] allowedOrigins = corsPolicySettings.AllowedOrigins;
+
+			if (allowedOrigins.Length == 0)
+			{
+				throw new InvalidOperationException($"{CorsPolicySettings.SectionName}:AllowedOrigins must contain at least one origin.");
+			}
+
+			services.AddCors(options =>
+			{
+				options.AddPolicy("WhatsOnWebClient", policy =>
+				{
+					policy.WithOrigins(allowedOrigins)
+						.AllowAnyHeader()
+						.AllowAnyMethod();
+				});
 			});
 
 			return services;
