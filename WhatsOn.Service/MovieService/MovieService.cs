@@ -21,7 +21,7 @@ namespace WhatsOn.Service.MovieService
 			{
 				var url = request.Query switch
 				{
-					{ Length: > 0 } query => $"search/movie?{BuildQueryString(new Dictionary<string, string?>
+					{ Length: > 0 } query => $"search/movie?{BuildQueryString(new Dictionary<string, string>
 					{
 						["query"] = Uri.EscapeDataString(query),
 						["page"] = request.PageNumber.ToString(),
@@ -111,7 +111,7 @@ namespace WhatsOn.Service.MovieService
 			return response;
 		}
 
-		private static string BuildQueryString(Dictionary<string, string?> queryParams)
+		private static string BuildQueryString(Dictionary<string, string> queryParams)
 		{
 			return string.Join("&", queryParams
 				.Where(x => !string.IsNullOrEmpty(x.Value))

@@ -203,7 +203,7 @@ public abstract class WhatsOnApiClientBase
 		return request.RequestUri.IsAbsoluteUri ? request.RequestUri.PathAndQuery : request.RequestUri.OriginalString;
 	}
 
-	protected static string BuildRelativeUri(string path, IReadOnlyDictionary<string, string?> queryParameters)
+	protected static string BuildRelativeUri(string path, IReadOnlyDictionary<string, string> queryParameters)
 	{
 		string queryString = BuildQueryString(queryParameters);
 		return string.IsNullOrWhiteSpace(queryString) ? path : $"{path}?{queryString}";

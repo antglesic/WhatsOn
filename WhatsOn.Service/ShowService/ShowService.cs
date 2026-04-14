@@ -22,7 +22,7 @@ public class ShowService(
 		{
 			var url = request.Query switch
 			{
-				{ Length: > 0 } query => $"search/tv?{BuildQueryString(new Dictionary<string, string?>
+				{ Length: > 0 } query => $"search/tv?{BuildQueryString(new Dictionary<string, string>
 				{
 					["query"] = Uri.EscapeDataString(query),
 					["page"] = request.PageNumber.ToString(),
@@ -112,7 +112,7 @@ public class ShowService(
 		return response;
 	}
 
-	private static string BuildQueryString(Dictionary<string, string?> queryParams)
+	private static string BuildQueryString(Dictionary<string, string> queryParams)
 	{
 		return string.Join("&", queryParams
 			.Where(x => !string.IsNullOrEmpty(x.Value))

@@ -7,13 +7,13 @@ public record MovieDetailResponse
 	private const string ImageBaseUrl = "https://image.tmdb.org/t/p";
 	public int Id { get; init; }
 	public string Title { get; init; } = string.Empty;
-	public string? OriginalTitle { get; init; } = string.Empty;
-	public string? Tagline { get; init; } = string.Empty;
-	public string? Overview { get; init; } = string.Empty;
-	public string? Status { get; init; } = string.Empty;
-	public string? ReleaseDate { get; init; } = string.Empty;
-	public string? Homepage { get; init; } = string.Empty;
-	public string? ImdbId { get; init; } = string.Empty;
+	public string OriginalTitle { get; init; } = string.Empty;
+	public string Tagline { get; init; } = string.Empty;
+	public string Overview { get; init; } = string.Empty;
+	public string Status { get; init; } = string.Empty;
+	public string ReleaseDate { get; init; } = string.Empty;
+	public string Homepage { get; init; } = string.Empty;
+	public string ImdbId { get; init; } = string.Empty;
 	public string Language { get; init; } = string.Empty;
 	public int? Runtime { get; init; }
 	public long Budget { get; init; }
@@ -24,22 +24,22 @@ public record MovieDetailResponse
 	public IReadOnlyList<Genre> Genres { get; init; } = [];
 	public IReadOnlyList<ProductionCountry> ProductionCountries { get; init; } = [];
 	public IReadOnlyList<SpokenLanguage> SpokenLanguages { get; init; } = [];
-	public Video? Videos { get; init; }
+	public Video Videos { get; init; }
 	public IReadOnlyList<ProductionCompany> ProductionCompanies { get; init; } = [];
-	public MovieCollection? MovieCollection { get; init; }
+	public MovieCollection MovieCollection { get; init; }
 
-	private string? _posterPath;
-	private string? _backdropPath;
-	private IReadOnlyList<Trailer>? _trailers;
+	private string _posterPath;
+	private string _backdropPath;
+	private IReadOnlyList<Trailer> _trailers;
 
-	public string? PosterPath
+	public string PosterPath
 	{
-		get => _posterPath is null ? null : $"{ImageBaseUrl}/w500{_posterPath}";
+		get => _posterPath is null ? string.Empty : $"{ImageBaseUrl}/w500{_posterPath}";
 		init => _posterPath = value;
 	}
-	public string? BackdropPath
+	public string BackdropPath
 	{
-		get => _backdropPath is null ? null : $"{ImageBaseUrl}/w1280{_backdropPath}";
+		get => _backdropPath is null ? string.Empty : $"{ImageBaseUrl}/w1280{_backdropPath}";
 		init => _backdropPath = value;
 	}
 

@@ -10,5 +10,5 @@ public class GetShowDetailsRequest : RequestBase
 
 public class GetShowDetailsResponse : ResponseBase<GetShowDetailsRequest>
 {
-	public ShowDetailResponse? ShowDetails { get; set; } = new();
+	public ShowDetailResponse ShowDetails { get; set; } = new();
 }
