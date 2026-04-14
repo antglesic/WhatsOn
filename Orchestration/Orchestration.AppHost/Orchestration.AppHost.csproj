@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\WhatsOn.Api\WhatsOn.Api.csproj" />
+    <ProjectReference Include="..\..\WhatsOn.WebApplication\WhatsOn.WebApplication.csproj" />
   </ItemGroup>
 
 </Project>

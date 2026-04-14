@@ -14,5 +14,7 @@
     <Project Path="Orchestration/Orchestration.AppHost/Orchestration.AppHost.csproj" />
     <Project Path="Orchestration/Orchestration.ServiceDefaults/Orchestration.ServiceDefaults.csproj" />
   </Folder>
-  <Folder Name="/src/WhatsOn.Web/" />
+  <Folder Name="/src/WhatsOn.Web/">
+    <Project Path="WhatsOn.WebApplication/WhatsOn.WebApplication.csproj" Id="663d2362-6321-4192-b662-cae40f61ceb8" />
+  </Folder>
 </Solution>

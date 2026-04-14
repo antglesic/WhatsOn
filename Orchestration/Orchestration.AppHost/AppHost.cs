@@ -23,6 +23,11 @@ var apiService = builder.AddProject<Projects.WhatsOn_Api>("api")
 	.WithReference(cache)
 	.WaitFor(cache);
 
+builder.AddProject<Projects.WhatsOn_WebApplication>("web")
+	.WithHttpHealthCheck("/health")
+	.WithReference(apiService)
+	.WaitFor(apiService);
+
 await builder
 	.Build()
 	.RunAsync();
