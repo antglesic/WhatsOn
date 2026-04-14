@@ -2,6 +2,7 @@
   <Folder Name="/SolutionItems/">
     <File Path="Assignment.md" />
     <File Path="set-tmdb-access-token.cmd" />
+    <File Path="Solution.md" />
     <File Path="TMDB_API_KEY.json" />
   </Folder>
   <Folder Name="/src/" />
