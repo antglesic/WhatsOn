@@ -15,6 +15,6 @@ public record Show
 	public List<string> OriginCountry { get; init; } = [];
 	public bool Adult { get; init; } = false;
 	public bool Video { get; init; } = false;
-	public DateOnly FirstAirDate { get; init; }
+	public DateOnly? FirstAirDate { get; init; }
 	public string? PosterPath { get; init; } = string.Empty;
 }

@@ -16,7 +16,7 @@ public record ShowDetailResponse
 	public double Popularity { get; init; }
 	public string Homepage { get; init; } = string.Empty;
 	public bool InProduction { get; init; } = false;
-	public DateOnly FirstAirDate { get; init; }
+	public DateOnly? FirstAirDate { get; init; }
 	public DateOnly? LastAirDate { get; init; }
 	public EpisodeDetails? LastEpisode { get; init; }
 	public EpisodeDetails? NextEpisodeToAir { get; init; }

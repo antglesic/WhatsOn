@@ -7,7 +7,7 @@ public record EpisodeDetails
 	public string Overview { get; init; } = string.Empty;
 	public double VoteAverage { get; init; }
 	public int VoteCount { get; init; }
-	public DateOnly AirDate { get; init; }
+	public DateOnly? AirDate { get; init; }
 	public int EpisodeNumber { get; init; }
 	public string EpisodeType { get; init; } = string.Empty;
 	public string ProductionCode { get; init; } = string.Empty;

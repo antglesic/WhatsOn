@@ -1,0 +1,59 @@
+@page "/shows"
+@using GrabaUIPackage.Components
+@using WhatsOn.Web.Services.ShowApiService
+
+<PageTitle>Shows</PageTitle>
+
+<h1>Show Search</h1>
+<p>Search the WhatsOn API and browse paged TV show results</p>
+
+<form class="row g-3 mb-4" @onsubmit="HandleSearch" @onsubmit:preventDefault>
+	<div class="col-md-8">
+		<label class="form-label" for="show-query">Title</label>
+		<input id="show-query"
+			   class="form-control"
+			   placeholder="Search for a TV show or leave blank to discover titles"
+			   @bind="_query" />
+	</div>
+	<div class="col-md-2">
+		<label class="form-label" for="shows-include-adult">Include Adult</label>
+		<div class="form-check mt-2">
+			<input id="shows-include-adult" class="form-check-input" type="checkbox" @bind="_includeAdult" />
+			<label class="form-check-label" for="shows-include-adult">Yes</label>
+		</div>
+	</div>
+	<div class="col-md-2 d-flex align-items-end">
+		<button class="btn btn-primary w-100" type="submit" disabled="@_isLoading">
+			@(_isLoading ? "Searching..." : "Search")
+		</button>
+	</div>
+</form>
+
+@if (_isLoading)
+{
+	<p><em>Loading shows...</em></p>
+}
+else
+{
+	<DataGrid TItem="Show"
+			  Items="@_shows"
+			  Sortable="true"
+			  PageSizeOptions="@_pageSizeOptions"
+			  PageNumber="@_pageNumber"
+			  PageSize="@_pageSize"
+			  RowSelectionIdentifierProperty="Id"
+			  EnableRowSelection="true"
+			  MultiSelectionEnabled="false"
+			  OnPageChanged="OnPageNumberChange"
+			  RowCount="_rowCount">
+		<GridColumn TItem="Show" Property="Name" Caption="Naziv" Sortable="true" Filterable="false" />
+		<GridColumn TItem="Show" Property="Overview" Caption="Opis" Sortable="true" Filterable="false" />
+		<GridColumn TItem="Show" Caption="Actions" Sortable="false" Filterable="false">
+			<Template Context="show">
+				<button class="btn btn-sm btn-outline-primary" type="button" @onclick="() => View(show)">
+					View Details
+				</button>
+			</Template>
+		</GridColumn>
+	</DataGrid>
+}

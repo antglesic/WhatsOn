@@ -47,6 +47,13 @@ else
 			  OnPageChanged="OnPageNumberChange"
 			  RowCount="_rowCount">
 		<GridColumn TItem="Movie" Property="Title" Caption="Naziv" Sortable="true" Filterable="false" />
-		<GridColumn TItem="Movie" Property="Overview" Caption="Naziv" Sortable="true" Filterable="false" />
+		<GridColumn TItem="Movie" Property="Overview" Caption="Opis" Sortable="true" Filterable="false" />
+		<GridColumn TItem="Movie" Caption="Actions" Sortable="false" Filterable="false">
+			<Template Context="movie">
+				<button class="btn btn-sm btn-outline-primary" type="button" @onclick="() => View(movie)">
+					View Details
+				</button>
+			</Template>
+		</GridColumn>
 	</DataGrid>
 }

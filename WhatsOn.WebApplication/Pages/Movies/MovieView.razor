@@ -1,0 +1,110 @@
+@page "/movies/view/{Id:int}"
+
+<PageTitle>@PageTitleText</PageTitle>
+
+@if (_isLoading)
+{
+	<p><em>Loading movie details...</em></p>
+}
+else if (!string.IsNullOrWhiteSpace(_errorMessage))
+{
+	<div class="alert alert-danger" role="alert">
+		@_errorMessage
+	</div>
+}
+else
+{
+	@if (MovieDetails == null)
+	{
+		<div class="alert alert-warning" role="alert">
+			Movie details not found.
+		</div>
+	}
+	else
+	{
+		<div class="container py-4">
+			<h1>@MovieDetails.Title</h1>
+
+			@if (!string.IsNullOrWhiteSpace(MovieDetails.Tagline))
+			{
+				<p class="lead text-muted">@MovieDetails.Tagline</p>
+			}
+
+			<div class="row g-4">
+				<div class="col-lg-4">
+					@if (!string.IsNullOrWhiteSpace(MovieDetails?.PosterPath))
+					{
+						<img class="img-fluid rounded shadow-sm" src="@MovieDetails?.PosterPath" alt="@MovieDetails?.Title" />
+					}
+				</div>
+
+				<div class="col-lg-8">
+					@if (!string.IsNullOrWhiteSpace(MovieDetails?.BackdropPath))
+					{
+						<img class="img-fluid rounded mb-3" src="@MovieDetails?.BackdropPath"
+							 alt="@($"{MovieDetails?.Title} backdrop")" />
+					}
+
+					<dl class="row">
+						<dt class="col-sm-3">Release</dt>
+						<dd class="col-sm-9">@DisplayOrFallback(MovieDetails?.ReleaseDate)</dd>
+
+						<dt class="col-sm-3">Runtime</dt>
+						<dd class="col-sm-9">@DisplayRuntime(MovieDetails?.Runtime)</dd>
+
+						<dt class="col-sm-3">Rating</dt>
+						<dd class="col-sm-9">@MovieDetails?.VoteAverage.ToString("0.0") (@MovieDetails?.VoteCount votes)</dd>
+
+						<dt class="col-sm-3">Status</dt>
+						<dd class="col-sm-9">@DisplayOrFallback(MovieDetails?.Status)</dd>
+
+						<dt class="col-sm-3">Language</dt>
+						<dd class="col-sm-9">@DisplayOrFallback(MovieDetails?.Language)</dd>
+
+						<dt class="col-sm-3">Genres</dt>
+						<dd class="col-sm-9">@MovieDetails?.GenreString</dd>
+					</dl>
+
+					@if (!string.IsNullOrWhiteSpace(MovieDetails?.Overview))
+					{
+						<p>@MovieDetails.Overview</p>
+					}
+				</div>
+			</div>
+
+			<section class="mt-4">
+				<h2 class="h4">Trailers</h2>
+
+				@if (MovieDetails?.Trailers == null || MovieDetails.Trailers.Count == 0)
+				{
+					<p class="text-muted">No trailers available for this movie.</p>
+				}
+				else
+				{
+					<div class="row g-3">
+						@foreach (var trailer in MovieDetails.Trailers)
+						{
+							<div class="col-md-6 col-xl-4">
+								<div class="card h-100">
+									<div class="ratio ratio-16x9">
+										<iframe src="@trailer.EmbedUrl"
+												title="@trailer.Name"
+												loading="lazy"
+												allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+												referrerpolicy="strict-origin-when-cross-origin"
+												allowfullscreen>
+										</iframe>
+									</div>
+									<div class="card-body">
+										<h3 class="h6 card-title mb-1">@trailer.Name</h3>
+										<p class="card-text text-muted mb-0">@trailer.Type</p>
+									</div>
+								</div>
+							</div>
+						}
+					</div>
+				}
+			</section>
+		</div>
+	}
+}

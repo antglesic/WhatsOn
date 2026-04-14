@@ -1,58 +1,58 @@
-﻿using GrabaUIPackage.Components.Common.EventArgs;
+using GrabaUIPackage.Components.Common.EventArgs;
 using Microsoft.AspNetCore.Components;
-using WhatsOn.Web.Services.MovieApiService;
-using WhatsOn.Web.Services.MovieApiService.Models;
-using WhatsOn.Web.Services.MovieApiService.Records;
+using WhatsOn.Web.Services.ShowApiService;
+using WhatsOn.Web.Services.ShowApiService.Models;
+using WhatsOn.Web.Services.ShowApiService.Records;
 
-namespace WhatsOn.WebApplication.Pages.Movies;
+namespace WhatsOn.WebApplication.Pages.Shows;
 
-public partial class Movies : ComponentBase
+public partial class Shows : ComponentBase
 {
 	private readonly int _pageSize = 20;
 	private int _pageNumber = 1;
 	private readonly int[] _pageSizeOptions = [20];
-	private int _rowCount = 0;
+	private int _rowCount;
 	private bool _isLoading;
 	private string _query = string.Empty;
 	private bool _includeAdult;
-	private Movie[]? _movies;
+	private Show[]? _shows;
 
 	[Inject]
-	IMovieApiClient MovieService { get; set; } = default!;
+	IShowApiClient ShowService { get; set; } = default!;
 
 	[Inject]
 	NavigationManager NavigationManager { get; set; } = default!;
 
 	protected override async Task OnInitializedAsync()
 	{
-		await LoadMovies();
+		await LoadShows();
 		await base.OnInitializedAsync();
 	}
 
 	private async Task HandleSearch()
 	{
 		_pageNumber = 1;
-		await LoadMovies();
+		await LoadShows();
 	}
 
-	private async Task LoadMovies()
+	private async Task LoadShows()
 	{
 		_isLoading = true;
 
-		GetMoviesRequest request = new()
+		GetShowsRequest request = new()
 		{
 			Query = _query,
 			PageNumber = _pageNumber,
 			IncludeAdult = _includeAdult
 		};
 
-		GetMoviesResponse response = await MovieService.GetMoviesAsync(request);
+		GetShowsResponse response = await ShowService.GetShowsAsync(request);
 
 		if (response is { Success: true }
-			&& response.Movies is { Data: not null })
+			&& response.Shows is { Data: not null })
 		{
-			_movies = [.. response.Movies.Data];
-			_rowCount = response.Movies.TotalItemCount;
+			_shows = [.. response.Shows.Data];
+			_rowCount = response.Shows.TotalItemCount;
 			await InvokeAsync(StateHasChanged);
 		}
 
@@ -62,12 +62,12 @@ public partial class Movies : ComponentBase
 	private async Task OnPageNumberChange(PageChangedEventArgs args)
 	{
 		_pageNumber = args.CurrentPage;
-		await LoadMovies();
+		await LoadShows();
 	}
 
-	private Task View(Movie movie)
+	private Task View(Show show)
 	{
-		NavigationManager.NavigateTo($"/movies/view/{movie.Id}");
+		NavigationManager.NavigateTo($"/shows/view/{show.Id}");
 		return Task.CompletedTask;
 	}
 }
